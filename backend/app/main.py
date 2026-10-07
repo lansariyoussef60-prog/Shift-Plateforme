@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.core.config import settings
 from app.routers import (
     activity_logs,
     auth,
@@ -24,7 +24,7 @@ app = FastAPI(title="SHIFT API", version="0.1.0")
 # Adjust allow_origins to the real frontend URL(s) before deploying past local dev.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=settings.allowed_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
