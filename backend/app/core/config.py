@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
+from typing import List
+from pydantic import field_validator
 
 class Settings(BaseSettings):
     """Central application configuration, populated from environment variables / .env.
