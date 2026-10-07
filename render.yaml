@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: shift-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "alembic upgrade head && python -m scripts.seed_initial_data && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shift-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: REFRESH_TOKEN_EXPIRE_DAYS
+        value: "7"
+      - key: INVITE_EXPIRE_DAYS
+        value: "7"
+      - key: FRONTEND_BASE_URL
+        value: "http://localhost:5173"
+      - key: ALLOWED_ORIGINS
+        value: "http://localhost:5173,http://localhost:3000"
+      - key: SEED_ADMIN_EMAIL
+        sync: false
+      - key: SEED_ADMIN_PASSWORD
+        sync: false
+      - key: SEED_ADMIN_NAME
+        value: "SHIFT Admin"
+
+databases:
+  - name: shift-db
+    plan: free
+    databaseName: shift_db
+    user: shift_user
