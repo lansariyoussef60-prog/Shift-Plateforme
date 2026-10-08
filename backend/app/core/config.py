@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     # Comma-separated list of origins allowed by CORS. Kept as a plain string
     # (not a list) because that's what a platform's env-var UI can set
     # directly — see allowed_origins_list below for the parsed form.
-    ALLOWED_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
+    ALLOWED_ORIGINS: str = "http://localhost:5173,https://shift-plateforme-ftat-iota.vercel.app"
 
     # Optional bootstrap values used only by scripts/seed_initial_data.py
     SEED_ADMIN_EMAIL: str = "admin@aiesecbardo.org"
